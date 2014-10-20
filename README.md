@@ -17,7 +17,7 @@ It checks the traffic violation record in Shanghai Traffic Information Network(�
 
 Use command python3 tvish.py 2>/dev/null to filter out all warnings. 
 
-Users should have a configuration file called ".tvish" under your home directory. 
+Users should have a configuration file called ".tvish" under your script directory. 
 Here is an example:
 
     [浙D18888]
@@ -27,3 +27,13 @@ Here is an example:
 Users need only change the section name(浙D18888) and EngineerNumber. If two or more autos need to be checked, just add other sections.
 
 
+Mail Support
+======
+
+Modify your email config in tvish.py (!TODO: Needs to be optimized)
+
+
+Systemd Timer Support
+======
+
+Put tvish.service and tvish.timer in ~/.config/systemd/user to run a cron job everyday.
