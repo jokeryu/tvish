@@ -22,11 +22,37 @@ from sklearn import tree
 import configparser
 import requests
 import re
+import smtplib
+import email.mime.text
+from datetime import date
 
 #This is url for search the record of violating traffic safe code
 URL='http://www.shjtaq.com/Server4/dzjc_new.asp?'
 IDENTIFY_URL='http://www.shjtaq.com/Server4/validatecode.asp'
 
+mail_username = 'yourmail'
+mail_password = 'yourpassword'
+from_addr = mail_username
+to_addr = 'mailto'
+
+HOST = 'smtp.gmail.com'  
+PORT = 587  
+TIMEOUT = 20
+DEBUG = 1
+
+def sendMail(content):
+    smtp = smtplib.SMTP(HOST, PORT, TIMEOUT)
+    smtp.set_debuglevel(DEBUG)
+    smtp.ehlo()
+    smtp.starttls()  
+    smtp.ehlo() 
+    smtp.login(mail_username,mail_password)  
+    msg = email.mime.text.MIMEText(content)
+    msg['From'] = from_addr  
+    msg['To'] = to_addr  
+    msg['Subject'] = '[交通违章查询结果][' + date.today().isoformat() + ']'
+    smtp.sendmail(from_addr,to_addr,msg.as_string())
+    smtp.quit()
 
 def img2vector(im):
     '''
@@ -180,9 +206,13 @@ def displayResult(content):
     for line in content.splitlines():
         m = pattern.search(line)
         if m:
-            print(m.group(1))
+            msg = m.group(1)
+            print(msg)
+            sendMail(msg)
             return 
-    print("你有交通违法记录，请登录%s进行查询"%URL)
+    msg = "你有交通违法记录，请登录%s进行查询"%URL
+    print(msg)
+    sendMail(msg)
 
 if __name__ == '__main__':
 
