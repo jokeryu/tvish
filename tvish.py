@@ -194,7 +194,7 @@ if __name__ == '__main__':
     
 
     config = configparser.ConfigParser()
-    config.read([os.path.expanduser('~/.tvish')])
+    config.read(os.path.join(sys.path[0], '.tvish'))
 
     
     
