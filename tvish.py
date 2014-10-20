@@ -49,7 +49,7 @@ def loadDataSet():
     Loads the training examples
     '''
 
-    matrix = np.loadtxt('examples/dataSet.txt')
+    matrix = np.loadtxt(os.path.join(sys.path[0], 'examples', 'dataSet.txt'))
     X = matrix[:, 0:-1]
     y = matrix[:,-1]
 
@@ -160,7 +160,7 @@ def collectData(pathname):
             lsts.append(lst)
 
     print(lsts)
-    np.savetxt('examples/dataSet.txt', np.array(lsts))
+    np.savetxt(os.path.join(pathname, 'dataSet.txt'), np.array(lsts))
 
         
 def getIdentifyingCode(sess):
@@ -188,7 +188,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1: 
         print("Building training examples....")
-        collectData("./examples")
+        collectData(os.path.join(sys.path[0], 'examples'))
         print("Done!")
         sys.exit(0)
     
