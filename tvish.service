@@ -1,0 +1,7 @@
+[Unit]
+Description=A command line tool that checks if user violated the traffic security code.
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=~/tvish/tvish.py

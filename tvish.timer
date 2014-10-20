@@ -1,0 +1,10 @@
+[Unit]
+Description=Run tvish every day
+ 
+[Timer]
+OnBootSec=10min
+OnCalendar=daily
+Unit=tvish.service
+ 
+[Install]
+WantedBy=default.target
